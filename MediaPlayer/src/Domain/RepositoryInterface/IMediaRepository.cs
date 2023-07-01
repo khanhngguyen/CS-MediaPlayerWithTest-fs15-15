@@ -11,9 +11,11 @@ namespace MediaPlayer.src.Domain.RepositoryInterface
         void Play(int fileId);
         void Pause(int fileId);
         void Stop(int fileId);
-        void CreateNewFile(string fileName, string filePath, TimeSpan duration);
-        void DeleteFileById(int fileId);
-        void GetAllFiles();
-        void GetFileById(int fileId);
+        bool CreateNewFile(string fileName, string filePath, TimeSpan duration);
+        MediaFile? CreateAudioFile(string fileName, string filePath, TimeSpan duration);
+        MediaFile? CreateVideoFile(string fileName, string filePath, TimeSpan duration);
+        bool DeleteFileById(int fileId);
+        string GetAllFiles();
+        MediaFile? GetFileById(int fileId);
     }
 }

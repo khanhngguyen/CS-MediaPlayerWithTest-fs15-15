@@ -2,45 +2,87 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediaPlayer.src.Domain.Core;
 using MediaPlayer.src.Domain.RepositoryInterface;
 
 namespace MediaPlayer.src.Infrastructure.Repository
 {
     public class MediaRepository : IMediaRepository
     {
-        public void CreateNewFile(string fileName, string filePath, TimeSpan duration)
+        private readonly Dictionary<int, MediaFile> _files = new();
+
+        public bool CreateNewFile(string fileName, string filePath, TimeSpan duration)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteFileById(int fileId)
+        public MediaFile? CreateAudioFile(string fileName, string filePath, TimeSpan duration)
         {
-            throw new NotImplementedException();
+            Audio file = new(fileName, filePath, duration);
+            if (_files.ContainsKey(file.GetId))
+            {
+                Console.WriteLine("File already existed");
+                return null;
+            }
+            else 
+            {
+                _files.Add(file.GetId, file);
+                return file;
+            }
         }
 
-        public void GetAllFiles()
+        public MediaFile? CreateVideoFile(string fileName, string filePath, TimeSpan duration)
         {
-            throw new NotImplementedException();
+            Video file = new(fileName, filePath, duration);
+            if (_files.ContainsKey(file.GetId))
+            {
+                Console.WriteLine("File already existed");
+                return null;
+            }
+            else 
+            {
+                _files.Add(file.GetId, file);
+                return file;
+            }
         }
 
-        public void GetFileById(int fileId)
+        public bool DeleteFileById(int fileId)
         {
-            throw new NotImplementedException();
+            return _files.Remove(fileId);
+        }
+
+        public string GetAllFiles()
+        {
+            string text = "All files:";
+            foreach (var (key, value) in _files)
+            {
+                text += $"\n{value.FileName}.";
+            }
+            return text;
+        }
+
+        public MediaFile? GetFileById(int fileId)
+        {
+            if (_files.ContainsKey(fileId)) return _files[fileId];
+            else return null;
         }
 
         public void Pause(int fileId)
         {
-            throw new NotImplementedException();
+            var file = GetFileById(fileId);
+            file?.Pause();
         }
 
         public void Play(int fileId)
         {
-            throw new NotImplementedException();
+            var file = GetFileById(fileId);
+            file?.Play();
         }
 
         public void Stop(int fileId)
         {
-            throw new NotImplementedException();
+            var file = GetFileById(fileId);
+            file?.Stop();
         }
     }
 }

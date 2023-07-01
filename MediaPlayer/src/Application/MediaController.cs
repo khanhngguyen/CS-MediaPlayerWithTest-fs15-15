@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediaPlayer.src.Business.ServiceInterface;
+using MediaPlayer.src.Domain.Core;
 
 namespace MediaPlayer.src.Application
 {
@@ -15,24 +16,26 @@ namespace MediaPlayer.src.Application
             _mediaService = mediaService;
         }
 
-        public void CreateNewFile(string fileName, string filePath, TimeSpan duration)
+        public MediaFile? CreateNewFile(string fileName, string filePath, TimeSpan duration, string type)
         {
-            _mediaService.CreateNewFile(fileName, filePath, duration);
+            if (type == "audio" || type == "video") return _mediaService.CreateNewFile(fileName, filePath, duration, type);
+            else throw new ArgumentException("type can only be \"audio\" or \"video\"");
+            // else return _mediaService.CreateNewFile(fileName, filePath, duration, type);
         }
 
-        public void DeleteFileById(int id)
+        public bool DeleteFileById(int id)
         {
-            _mediaService.DeleteFileById(id);
+            return _mediaService.DeleteFileById(id);
         }
 
-        public void GetAllFiles()
+        public string GetAllFiles()
         {
-            _mediaService.GetAllFiles();
+            return _mediaService.GetAllFiles();
         }
 
-        public void GetFileById(int id)
+        public MediaFile? GetFileById(int id)
         {
-            _mediaService.GetFileById(id);
+            return _mediaService.GetFileById(id);
         }
     }
 }

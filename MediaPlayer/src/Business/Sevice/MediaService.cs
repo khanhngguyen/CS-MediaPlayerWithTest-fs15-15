@@ -13,24 +13,28 @@ namespace MediaPlayer.src.Business.Sevice
             _mediaRepository = mediaRepository; 
         }
 
-        public void CreateNewFile(string fileName, string filePath, TimeSpan duration)
+        public MediaFile? CreateNewFile(string fileName, string filePath, TimeSpan duration, string type)
         {
-            _mediaRepository.CreateNewFile(fileName, filePath, duration);
+            if (type == "audio")
+            {
+                return _mediaRepository.CreateAudioFile(fileName, filePath, duration);
+            }
+            else return _mediaRepository.CreateVideoFile(fileName, filePath, duration);
         }
 
-        public void DeleteFileById(int id)
+        public bool DeleteFileById(int id)
         {
-            _mediaRepository.DeleteFileById(id);
+            return _mediaRepository.DeleteFileById(id);
         }
 
-        public void GetAllFiles()
+        public string GetAllFiles()
         {
-            _mediaRepository.GetAllFiles();
+            return _mediaRepository.GetAllFiles();
         }
 
-        public void GetFileById(int id)
+        public MediaFile? GetFileById(int id)
         {
-            _mediaRepository.GetFileById(id);
+            return _mediaRepository.GetFileById(id);
         }
     }
 }

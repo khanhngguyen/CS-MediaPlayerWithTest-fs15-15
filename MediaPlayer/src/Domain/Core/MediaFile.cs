@@ -23,7 +23,7 @@ namespace MediaPlayer.src.Domain.Core
                     _playbackSpeed = value;
                     //re play to get new speed
                     Pause();
-                    Play();
+                    // Play();
                 }
                 else
                 {
