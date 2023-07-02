@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediaPlayer.src.Business.ServiceInterface;
+using MediaPlayer.src.Domain.Core;
 using MediaPlayer.src.Domain.RepositoryInterface;
 
 namespace MediaPlayer.src.Business.Sevice
@@ -16,34 +17,33 @@ namespace MediaPlayer.src.Business.Sevice
             _userRepository = userRepository;
         }
 
-        public void AddNewList(string name, int userId)
+        public PlayList? AddNewList(string name, int userId)
         {
-            _userRepository.AddNewList(name, userId);
+            return _userRepository.AddNewList(name, userId);
+        }
+        public bool RemoveOneList(int listId, int userId)
+        {
+            return _userRepository.RemoveOneList(listId, userId);
+        }
+        public bool RemoveAllLists(int userId)
+        {
+            return _userRepository.RemoveAllLists(userId);
         }
 
-        public void EmptyOneList(int listId, int userId)
+        public bool EmptyOneList(int listId, int userId)
         {
-            _userRepository.EmptyOneList(listId, userId);
+            return _userRepository.EmptyOneList(listId, userId);
         }
 
-        public void GetAllList(int userId)
+        public string GetAllList(int userId)
         {
-            _userRepository.GetAllList(userId);
+            return _userRepository.GetAllList(userId);
         }
 
-        public void GetListById(int listId)
+        public PlayList? GetListById(int listId, int userId)
         {
-            _userRepository.GetListById(listId);
+            return _userRepository.GetListById(listId, userId);
         }
 
-        public void RemoveAllLists(int userId)
-        {
-            _userRepository.RemoveAllLists(userId);
-        }
-
-        public void RemoveOneList(int listId, int userId)
-        {
-            _userRepository.RemoveOneList(listId, userId);
-        }
     }
 }

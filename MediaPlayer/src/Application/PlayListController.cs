@@ -1,4 +1,5 @@
 using MediaPlayer.src.Business.ServiceInterface;
+using MediaPlayer.src.Domain.Core;
 
 namespace MediaPlayer.src.Application
 {
@@ -11,19 +12,24 @@ namespace MediaPlayer.src.Application
             _playListService = playListService;
         }
 
-        public void AddNewFile(int playListId, int fileId, int userId)
+        public bool AddNewFile(PlayList playlist, MediaFile file, int userId)
         {
-            _playListService.AddNewFile(playListId, fileId, userId);
+            return _playListService.AddNewFile(playlist, file, userId);
         }
 
-        public void EmptyList(int playListId, int userId)
+        public bool EmptyList(PlayList playlist, int userId)
         {
-            _playListService.EmptyList(playListId, userId);
+            return _playListService.EmptyList(playlist, userId);
         }
 
-        public void RemoveFile(int playListId, int fileId, int userId)
+        public bool RemoveFile(PlayList playlist, MediaFile file, int userId)
         {
-            _playListService.RemoveFile(playListId, fileId, userId);
+            return _playListService.RemoveFile(playlist, file, userId);
+        }
+
+        public string GetAllFiles(PlayList playlist)
+        {
+            return playlist.GetAllFiles();
         }
     }
 }

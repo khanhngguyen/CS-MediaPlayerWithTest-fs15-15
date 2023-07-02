@@ -1,8 +1,8 @@
 namespace MediaPlayer.src.Domain.Core
 {
-    public class PlayList
+    public class PlayList : BaseEntity
     {
-        private readonly List<MediaFile> _files = new();
+        private readonly HashSet<MediaFile> _files = new();
         private readonly int _userId;
 
         public string ListName { get; set; }
@@ -13,22 +13,58 @@ namespace MediaPlayer.src.Domain.Core
             _userId = userId;
         }
 
-        public void AddNewFile(MediaFile file, int userId)
+        public bool AddNewFile(MediaFile file, int userId)
         {
             if (CheckUserId(userId))
-                _files.Add(file);
+            {
+                return _files.Add(file);
+            }
+            else
+            {
+                Console.WriteLine("Invalid user");
+                return false;
+            }
         }
 
-        public void RemoveFile(MediaFile file, int userId)
+        public bool RemoveFile(MediaFile file, int userId)
         {
             if (CheckUserId(userId))
-                _files.Remove(file);
+            {
+                return _files.Remove(file);
+            }
+            else 
+            {
+                Console.WriteLine("Invalid user");
+                return false;
+            }
         }
 
-        public void EmptyList(int userId)
+        public bool EmptyList(int userId)
         {
             if (CheckUserId(userId))
+            {
                 _files.Clear();
+                return true;
+            }
+            else 
+            {
+                Console.WriteLine("Invalid user");
+                return false;
+            }
+        }
+
+        public string GetAllFiles()
+        {
+            if (_files.Count == 0) return $"O files in Playlist {ListName}";
+            else
+            {
+                string text = $"All files in Playlist: {ListName}";
+                foreach (var file in _files)
+                {
+                    text += $"\n{file.FileName}";
+                }
+                return text;
+            }
         }
 
         private bool CheckUserId(int userId)

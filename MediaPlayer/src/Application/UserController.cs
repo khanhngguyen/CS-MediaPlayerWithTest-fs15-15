@@ -1,4 +1,5 @@
 using MediaPlayer.src.Business.ServiceInterface;
+using MediaPlayer.src.Domain.Core;
 
 namespace MediaPlayer.src.Application
 {
@@ -11,34 +12,41 @@ namespace MediaPlayer.src.Application
             _userService = userService;
         }
 
-        public void AddNewList(string name, int userId)
+        public PlayList? AddNewList(string name, int userId)
         {
-            _userService.AddNewList(name, userId);
+            if (string.IsNullOrEmpty(name)) throw new ArgumentException("name can not be empty");
+            else if (userId < 0) throw new ArgumentException("user id is invalid");
+            else return _userService.AddNewList(name, userId);
         }
 
-        public void EmptyOneList(int listId, int userId)
+        public bool EmptyOneList(int listId, int userId)
         {
-            _userService.EmptyOneList(listId, userId);
+            if (listId <=0 || userId < 0) throw new ArgumentException("invalid id, id can not be negative");
+            else return _userService.EmptyOneList(listId, userId);
         }
 
-        public void GetAllList(int userId)
+        public string GetAllList(int userId)
         {
-            _userService.GetAllList(userId);
+            if (userId < 0) throw new ArgumentException("user id is invalid");
+            else return _userService.GetAllList(userId);
         }
 
-        public void GetListById(int listId)
+        public PlayList? GetListById(int listId, int userId)
         {
-            _userService.GetListById(listId);
+            if (listId <=0 || userId < 0) throw new ArgumentException("invalid id, id can not be negative");
+            else return _userService.GetListById(listId, userId);
         }
 
-        public void RemoveAllLists(int userId)
+        public bool RemoveAllLists(int userId)
         {
-            _userService.RemoveAllLists(userId);
+            if (userId < 0) throw new ArgumentException("user id is invalid");
+            else return _userService.RemoveAllLists(userId);
         }
 
-        public void RemoveOneList(int listId, int userId)
+        public bool RemoveOneList(int listId, int userId)
         {
-           _userService.RemoveOneList(listId, userId);
+            if (userId < 0) throw new ArgumentException("user id is invalid");
+            else return _userService.RemoveOneList(listId, userId);
         }
     }
 }

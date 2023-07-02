@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediaPlayer.src.Business.ServiceInterface;
+using MediaPlayer.src.Domain.Core;
 using MediaPlayer.src.Domain.RepositoryInterface;
 
 namespace MediaPlayer.src.Business.Sevice
@@ -15,19 +16,24 @@ namespace MediaPlayer.src.Business.Sevice
         {
             _playList = playList;
         }
-        public void AddNewFile(int playListId, int fileId, int userId)
+        public bool AddNewFile(PlayList playlist, MediaFile file, int userId)
         {
-            _playList.AddNewFile(playListId, fileId, userId);
+            return _playList.AddNewFile(playlist, file, userId);
         }
 
-        public void EmptyList(int playListId, int userId)
+        public bool EmptyList(PlayList playlist, int userId)
         {
-            _playList.EmptyList(playListId, userId);
+            return _playList.EmptyList(playlist, userId);
         }
 
-        public void RemoveFile(int playListId, int fileId, int userId)
+        public bool RemoveFile(PlayList playlist, MediaFile file, int userId)
         {
-            _playList.RemoveFile(playListId, fileId, userId);
+            return _playList.RemoveFile(playlist, file, userId);
+        }
+        
+        public string GetAllFiles(PlayList list)
+        {
+            return list.GetAllFiles();
         }
     }
 }

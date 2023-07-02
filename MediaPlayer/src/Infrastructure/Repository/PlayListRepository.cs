@@ -2,25 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediaPlayer.src.Domain.Core;
 using MediaPlayer.src.Domain.RepositoryInterface;
 
 namespace MediaPlayer.src.Infrastructure.Repository
 {
     public class PlayListRepository : IPlayListRepository
     {
-        public void AddNewFile(int playListId, int fileId, int userId)
+        public bool AddNewFile(PlayList playList, MediaFile file, int userId)
         {
-            throw new NotImplementedException();
+            return playList.AddNewFile(file, userId);
         }
 
-        public void EmptyList(int playListId, int userId)
+        public bool EmptyList(PlayList playList, int userId)
         {
-            throw new NotImplementedException();
+            return playList.EmptyList(userId);
         }
 
-        public void RemoveFile(int playListId, int fileId, int userId)
+        public bool RemoveFile(PlayList list, MediaFile file, int userId)
         {
-            throw new NotImplementedException();
+            return list.RemoveFile(file, userId);
+        }
+
+        public string GetAllFiles(PlayList list)
+        {
+            return list.GetAllFiles();
         }
     }
 }

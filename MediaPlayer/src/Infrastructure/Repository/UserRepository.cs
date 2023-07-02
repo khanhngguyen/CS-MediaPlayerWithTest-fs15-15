@@ -9,37 +9,60 @@ namespace MediaPlayer.src.Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public UserRepository(){}
+        private readonly Dictionary<int, User> _users = new();
 
-        public void AddNewList(string name, int userId)
+        public UserRepository(User user)
         {
-            throw new NotImplementedException();
+            _users.Add(user.GetId, user);
         }
 
-        public void EmptyOneList(int listId, int userId)
+        public PlayList? AddNewList(string name, int userId)
         {
-            throw new NotImplementedException();
+            User user = _users[userId];
+            PlayList list = new(name, userId);
+            if (user.AddNewList(list)) return list;
+            else return null;
         }
 
-        public void GetAllList(int userId)
+        public bool RemoveOneList(int listId, int userId)
         {
-            throw new NotImplementedException();
+            User user = _users[userId];
+            var playlist = user.GetListById(listId);
+            if (playlist != null) return user.RemoveOneList(playlist);
+            else 
+            {
+                Console.WriteLine("Can not remove, user does not have playlist to remove");
+                return false;
+            }
         }
 
-        public void GetListById(int listId)
+        public bool RemoveAllLists(int userId)
         {
-            throw new NotImplementedException();
+            User user = _users[userId];
+            return user.RemoveAllLists();
         }
 
-        public void RemoveAllLists(int userId)
+        public bool EmptyOneList(int listId, int userId)
         {
-            throw new NotImplementedException();
+            User user = _users[userId];
+            var playlist = user.GetListById(listId);
+            if (playlist != null) return user.EmptyOneList(playlist);
+            else 
+            {
+                Console.WriteLine("Can not empty, playlist is not found");
+                return false;
+            }
         }
 
-        public void RemoveOneList(int listId, int userId)
+        public string GetAllList(int userId)
         {
-            throw new NotImplementedException();
+            return _users[userId].GetAllList();
         }
 
+        public PlayList? GetListById(int listId, int userId)
+        {
+            User user = _users[userId];
+            return user.GetListById(listId);
+        }
     }
 }
