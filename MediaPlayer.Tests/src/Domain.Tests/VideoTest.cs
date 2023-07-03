@@ -35,13 +35,15 @@ namespace MediaPlayer.Tests.src.Domain.Tests
             Assert.Equal(video.Speed, speed);
         }
 
-        [Fact]
-        public void ChangeSpeed_InvalidSpeed_UnchangedSpeed()
+        [Theory]
+        [InlineData(5)]
+        [InlineData(3.3)]
+        public void ChangeSpeed_InvalidSpeed_UnchangedSpeed(double speed)
         {
             Video video = new("Video 1", "video1.mov", new TimeSpan(0, 5, 15));
-            ArgumentException exception = Assert.Throws<ArgumentException>(() => video.ChangeSpeed(5));
+            ArgumentException exception = Assert.Throws<ArgumentException>(() => video.ChangeSpeed(speed));
 
-            Assert.Throws<ArgumentException>(() => video.ChangeSpeed(5));
+            Assert.Throws<ArgumentException>(() => video.ChangeSpeed(speed));
             Assert.Equal("Not a valid speed value", exception.Message);
             Assert.Equal(1, video.Speed);
         }

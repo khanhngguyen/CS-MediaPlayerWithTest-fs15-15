@@ -55,7 +55,7 @@ namespace MediaPlayer.Domain.src.Core
 
         public string GetAllFiles()
         {
-            if (_files.Count == 0) return $"O files in Playlist {ListName}";
+            if (_files.Count == 0) return $"0 files in Playlist {ListName}";
             else
             {
                 string text = $"All files in Playlist: {ListName}";

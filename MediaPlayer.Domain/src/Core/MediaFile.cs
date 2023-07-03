@@ -10,6 +10,7 @@ namespace MediaPlayer.Domain.src.Core
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public TimeSpan Duration { get; set; }
+        public TimeSpan CurrentPosition { get => _currentPosition; }
         public double Speed
         {
             get
@@ -96,6 +97,11 @@ namespace MediaPlayer.Domain.src.Core
                     Stop();
                 }
             }
+        }
+
+        public void ChangeSpeed(double speed)
+        {
+            Speed = speed;
         }
     }
 }
