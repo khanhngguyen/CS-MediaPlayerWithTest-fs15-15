@@ -11,7 +11,6 @@ namespace MediaPlayer.Domain.src.RepositoryInterface
         void Play(int fileId);
         void Pause(int fileId);
         void Stop(int fileId);
-        bool CreateNewFile(string fileName, string filePath, TimeSpan duration);
         MediaFile? CreateAudioFile(string fileName, string filePath, TimeSpan duration);
         MediaFile? CreateVideoFile(string fileName, string filePath, TimeSpan duration);
         bool DeleteFileById(int fileId);

@@ -10,10 +10,7 @@ namespace MediaPlayer.Tests.src.Infrastructure.Tests
 {
     public class MediaRepositoryTest
     {
-        public MediaRepositoryTest()
-        {
-            
-        }
+        public MediaRepositoryTest() {}
 
         [Fact]
         public void CreateNewFile_ValidData_ReturnMediaFile()

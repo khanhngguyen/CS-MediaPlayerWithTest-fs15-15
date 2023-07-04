@@ -11,11 +11,6 @@ namespace MediaPlayer.Infrastructure.src.Repository
     {
         private readonly Dictionary<int, MediaFile> _files = new();
 
-        public bool CreateNewFile(string fileName, string filePath, TimeSpan duration)
-        {
-            throw new NotImplementedException();
-        }
-
         public MediaFile? CreateAudioFile(string fileName, string filePath, TimeSpan duration)
         {
             Audio file = new(fileName, filePath, duration);
@@ -54,9 +49,16 @@ namespace MediaPlayer.Infrastructure.src.Repository
         public string GetAllFiles()
         {
             string text = "All files:";
-            foreach (var (key, value) in _files)
+            if (_files.Count == 0)
             {
-                text += $"\n{value.FileName}.";
+                text += "\n0 files to show";
+            }
+            else 
+            {
+                foreach (var (key, value) in _files)
+                {
+                    text += $"\n{value.FileName}.";
+                }
             }
             return text;
         }

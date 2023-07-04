@@ -9,6 +9,8 @@ namespace MediaPlayer.Tests.src.Domain.Tests
 {
     public class VideoTest
     {
+        public VideoTest() {}
+        
         [Fact]
         public void Constructor_ValidData_CreateNewVideo()
         {

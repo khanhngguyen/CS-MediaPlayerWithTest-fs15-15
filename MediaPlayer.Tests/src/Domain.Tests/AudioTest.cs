@@ -10,6 +10,8 @@ namespace MediaPlayer.Tests.src.Domain.Tests
 {
     public class AudioTest
     {
+        public AudioTest() {}
+        
         [Fact]
         public void Constructor_ValidData_CreateNewAudio()
         {

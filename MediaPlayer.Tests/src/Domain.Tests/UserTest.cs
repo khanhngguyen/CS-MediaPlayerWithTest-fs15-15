@@ -9,6 +9,11 @@ namespace MediaPlayer.Tests.src.Domain.Tests
 {
     public class UserTest
     {
+        public UserTest() {
+            User user = User.Instance;
+            user.RemoveAllLists();
+        }
+
         [Fact]
         public void CreateInstance_MultipleInstances_ReturnSingletonUser()
         {

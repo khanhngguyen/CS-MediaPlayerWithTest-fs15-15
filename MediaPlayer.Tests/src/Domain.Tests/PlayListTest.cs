@@ -9,6 +9,8 @@ namespace MediaPlayer.Tests.src.Domain.Tests
 {
     public class PlayListTest
     {
+        public PlayListTest() {}
+        
         [Fact]
         public void Constructor_ValidData_CreateNewPlayList()
         {
